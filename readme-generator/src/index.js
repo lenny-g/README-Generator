@@ -84,16 +84,16 @@ const generateReadme = (answers) => {
   `;
 };
 
-const writeToFilw{ , data } => {
-    writeFile.fs('GENERATED_README.md', readme, (err) =>
-    err ? console.error(err) : console.log('Success!')
-    
+const writeToFile = (title, data) => {
+  fs.writeFile(title, data, (err) =>
+    err ? console.error(err) : console.log("Success!")
+  );
 };
 
-
 const init = async () => {
-    // prompt the question using inquirer
-    // generate readme based on answers
-    const readme = generateReadme
-}
+  // prompt the question using inquirer
+  // generate readme based on answers
+  const readme = generateReadme();
+  writeToFile("GENERATED_README.md", readme);
+};
 init();
