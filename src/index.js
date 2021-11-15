@@ -80,8 +80,8 @@ const questions = [
 ];
 const getAnswers = async (questions) => await inquirer.prompt(questions);
 
-const generateTitle = (answers) => {
-  return `# TITLE ![MIT]https://img.shields.io/static/v1?label=<MIT>&message=<License>&color=<green>)`;
+const generateTitle = (title) => {
+  return `### ${title}`.toUpperCase();
 };
 
 const generateTableOfContents = (answers) => {
@@ -95,10 +95,10 @@ const generateTableOfContents = (answers) => {
     - [License](#license)`;
 };
 
-const generateDescription = (answers) => {
+const generateDescription = (description) => {
   return `## Description
-    
-    ADD TEXT HERE`;
+
+  ${description}`;
 };
 const generateInstallation = (answers) => {
   return `## Installation
