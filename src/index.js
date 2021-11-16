@@ -80,12 +80,13 @@ const questions = [
 ];
 const getAnswers = async (questions) => await inquirer.prompt(questions);
 
-const generateTitle = (title) => {
-  return `### ${title}`.toUpperCase();
+const generateTitle = (title, license) => {
+  return `# ${title}`.toUpperCase`
+  ![${license}] (https://img.shields.io/static/v1?label=<${license}>&message=<License>&color=<green>)`;
 };
 
 const generateTableOfContents = (answers) => {
-  return `  ## Table of Contents
+  return `## Table of Contents
     
     - [Description](#description)
     - [Installation](#installation)
@@ -96,53 +97,52 @@ const generateTableOfContents = (answers) => {
 };
 
 const generateDescription = (description) => {
-  return `## Description
-
+  return `## Description:
   ${description}`;
 };
-const generateInstallation = (answers) => {
-  return `## Installation
+
+const generateInstallation = (installation) => {
+  return `## Installation:
     
     Run the following script to install the packages required for the application:
     
     \`\`\`
-    npm install
-    
-    \`\`\``;
+    ${installation}
+    \`\`\` `;
 };
 
-const generateUsage = (answers) => {
-  `## Usage
+const generateUsage = (usage) => {
+  return `## Usage
     
     To use the application run the following script:
     
     \`\`\`
-    npm run start
+    ${usage}
     \`\`\``;
 };
-const generateTests = (answers) => {
+
+const generateTests = (test) => {
   return `## Tests
     
     To use this application run the following script:
     
     \`\`\`
-    ADD TEXT HERE
+    ${test}
     \`\`\``;
 };
 
-const generateContributing = (answers) => {
+const generateContributing = (contribution) => {
   return `## Contributing
     
-    \`\`\`
-    ADD TEXT HERE
-    \`\`\``;
+    ${contribution}
+    `;
 };
 
-const generateLicense = (answers) => {
-  return `   ## License
+const generateLicense = (license) => {
+  return `## License
     
     \`\`\`
-    MIT
+   ${license}
     \`\`\` `;
 };
 
