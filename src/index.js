@@ -143,7 +143,7 @@ const generateContributing = (contribute, email, github) => {
 
 ${contribute}
 
-and either contact me using my email: ${email} or github account: ${github}`;
+and either contact me using my email: ${email} or github account: <a href="https://github.com/${github}">${github}</a>`;
 };
 
 const generateLicense = (license) => {
