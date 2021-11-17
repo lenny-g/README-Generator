@@ -26,11 +26,11 @@ const questions = [
   },
   {
     type: "confirm",
-    name: "applicationConfirm",
+    name: "appConfirm",
     message: "Do you want to include an application?",
   },
   {
-    when: (answers) => answers.applicationConfirm,
+    when: (answers) => answers.appConfirm,
     type: "input",
     name: "usage",
     message: "How do I use the application? ",
@@ -40,10 +40,10 @@ const questions = [
     name: "license",
     message: "Choose a License:",
     choices: [
-      { name: "MIT", value: "mit" },
-      { name: "The Unlicense", value: "unlicense" },
-      { name: "Mozilla Public License 2.0", value: "mozilla" },
-      { name: "GNU General Public License v3.0", value: "gnu" },
+      { name: "MIT", value: "MIT" },
+      { name: "The Unlicense", value: "The Unlicense" },
+      { name: "Mozilla Public License 2.0", value: "MPL 2.0" },
+      { name: "GNU General Public License v3.0", value: "GPLv3" },
     ],
   },
   {
@@ -81,69 +81,75 @@ const questions = [
 const getAnswers = async (questions) => await inquirer.prompt(questions);
 
 const generateTitle = (title, license) => {
-  return `# ${title}`.toUpperCase`
-  ![${license}] (https://img.shields.io/static/v1?label=<${license}>&message=<License>&color=<green>)`;
+  const uppercaseTitle = title.toUpperCase();
+  return `# ${uppercaseTitle} ![${license}](https://img.shields.io/static/v1?label=${encodeURI(
+    license
+  )}&message=License&color=blueviolet)
+  `;
 };
 
-const generateTableOfContents = (answers) => {
-  return `## Table of Contents
-    
-    - [Description](#description)
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Tests](#tests)
-    - [Contributing](#contributing)
-    - [License](#license)`;
+const generateTableOfContents = ({ installation, usage, test }) => {
+  return `## Table of Contents${
+    installation ? "\n- [Installation](#installation)" : ""
+  }${usage ? "\n- [Usage](#usage)" : ""}${test ? "\n- [Tests](#tests)" : ""}
+- [Description](#description)
+- [Contributing](#contributing)
+- [License](#license)`;
 };
 
 const generateDescription = (description) => {
-  return `## Description:
-  ${description}`;
+  return `## Description
+${description}`;
 };
 
 const generateInstallation = (installation) => {
-  return `## Installation:
+  if (installation) {
+    return `## Installation
     
-    Run the following script to install the packages required for the application:
+Run the following script to install the packages required for the application:
     
-    \`\`\`
-    ${installation}
-    \`\`\` `;
+\`\`\`
+${installation}
+\`\`\``;
+  }
 };
 
 const generateUsage = (usage) => {
-  return `## Usage
+  if (usage) {
+    return `## Usage
     
-    To use the application run the following script:
+To use the application run the following script:
     
-    \`\`\`
-    ${usage}
-    \`\`\``;
+\`\`\`
+${usage}
+\`\`\``;
+  }
 };
 
 const generateTests = (test) => {
-  return `## Tests
+  if (test) {
+    return `## Tests
     
-    To use this application run the following script:
+To use this application run the following script:
     
-    \`\`\`
-    ${test}
-    \`\`\``;
+\`\`\`
+${test}
+\`\`\``;
+  }
 };
 
-const generateContributing = (contribution) => {
+const generateContributing = (contribute, email, github) => {
   return `## Contributing
-    
-    ${contribution}
-    `;
+
+${contribute}
+
+and either contact me using my email: ${email} or github account: ${github}`;
 };
 
 const generateLicense = (license) => {
   return `## License
-    
-    \`\`\`
-   ${license}
-    \`\`\` `;
+
+${license} license`;
 };
 
 const generateReadme = (answers) => {
@@ -153,21 +159,28 @@ const generateReadme = (answers) => {
     installation,
     usage,
     test,
-    contribution,
+    contribute,
+    email,
+    github,
     license,
   } = answers;
 
-  return `${generateTitle(title)}
-    ${generateTableOfContents(answers)}
-    ${generateDescription(description)}
-    ${generateInstallation(installation)}
-   ${generateUsage(usage)}
-    ${generateTests(test)}
+  return `
+${generateTitle(title, license)}
+
+${generateTableOfContents(answers)}
     
-   ${generateContributing(contribution)}
+${generateDescription(description)}
+
+${generateInstallation(installation)}
+
+${generateUsage(usage)}
+   
+${generateTests(test)}
     
-  ${generateLicense(license)}
-  `;
+${generateContributing(contribute, email, github)}
+    
+${generateLicense(license)}`;
 };
 
 const writeToFile = (title, data) => {
