@@ -1,6 +1,34 @@
 // import inquirer
 const inquirer = require("inquirer");
 const fs = require("fs");
+
+const loopQuestion = async (question) => {
+  let inProgress = true;
+  const results = [];
+
+  while (inProgress) {
+    const answers = await inquirer.prompt(question);
+    results.push(answers);
+    const { quit } = await inquirer.prompt({
+      type: "confirm",
+      message: "do you want to quit?",
+      name: "quit",
+    });
+
+    if (quit) {
+      inProgress = false;
+    }
+  }
+
+  return results;
+};
+
+// inquirer prompt for confirm
+// if true
+// loop question
+// get results
+// update main answers object with key and value
+
 //declare questions
 const questions = [
   {
@@ -18,23 +46,13 @@ const questions = [
     name: "installationConfirm",
     message: "Do you want to include an installation script? ",
   },
-  {
-    when: (answers) => answers.installationConfirm,
-    type: "input",
-    name: "installation",
-    message: "What is the installation script? ",
-  },
+
   {
     type: "confirm",
     name: "appConfirm",
     message: "Do you want to include an application?",
   },
-  {
-    when: (answers) => answers.appConfirm,
-    type: "input",
-    name: "usage",
-    message: "How do I use the application? ",
-  },
+
   {
     type: "list",
     name: "license",
@@ -71,20 +89,15 @@ const questions = [
     name: "testConfirm",
     message: "Do you want to include a test for this application?",
   },
-  {
-    when: (answers) => answers.testConfirm,
-    type: "input",
-    name: "test",
-    message: "How do I test this application?",
-  },
 ];
-const getAnswers = async (questions) => await inquirer.prompt(questions);
+const getAnswers = async (questions, loopQuestion) =>
+  await inquirer.prompt(questions, loopQuestion);
 
 const generateTitle = (title, license) => {
   const uppercaseTitle = title.toUpperCase();
   return `# ${uppercaseTitle} ![${license}](https://img.shields.io/static/v1?label=${encodeURI(
     license
-  )}&message=License&color=blueviolet)
+  )}&message=License&color=green)
   `;
 };
 
@@ -138,7 +151,25 @@ ${test}
   }
 };
 
-const generateContributing = (contribute, email, github) => {
+// loopQuestion(
+//   {
+//     type: "input",
+//     name: "installationSteps",
+//     message: "What are your steps?",
+//   },
+//   {
+//     type: "input",
+//     name: "usageSteps",
+//     message: "what are you steps?",
+//   },
+//   {
+//     type: "input",
+//     name: "testSteps",
+//     message: "what are your steps",
+//   }
+// );
+
+const generateContributing = ({ contribute, email, github }) => {
   return `## Contributing
 
 ${contribute}
@@ -152,7 +183,7 @@ const generateLicense = (license) => {
 ${license} license`;
 };
 
-const generateReadme = (answers) => {
+const generateReadme = (answers, loopAnswers) => {
   const {
     title,
     description,
@@ -165,6 +196,8 @@ const generateReadme = (answers) => {
     license,
   } = answers;
 
+  const { installationSteps, usageSteps, testSteps } = loopAnswers;
+
   return `
 ${generateTitle(title, license)}
 
@@ -172,11 +205,11 @@ ${generateTableOfContents(answers)}
     
 ${generateDescription(description)}
 
-${generateInstallation(installation)}
+${generateInstallation(installation, installationSteps)}
 
-${generateUsage(usage)}
+${generateUsage(usage, usageSteps)}
    
-${generateTests(test)}
+${generateTests(test, testSteps)}
     
 ${generateContributing(contribute, email, github)}
     
@@ -191,10 +224,39 @@ const writeToFile = (title, data) => {
 
 const init = async () => {
   // prompt the question using inquirer
-  const answers = await getAnswers(questions);
+  const answers = await inquirer.prompt(questions);
   console.log(answers);
+  let installationSteps, usageSteps, testSteps;
+
+  if (answers.installationConfirm) {
+    installationSteps = await loopQuestion({
+      type: "input",
+      name: "installationSteps",
+      message: "What are your steps?",
+    });
+    console.log(installationSteps);
+  }
+  if (answers.appConfirm) {
+    usageSteps = await loopQuestion({
+      type: "input",
+      name: "usageSteps",
+      message: "What are your steps?",
+    });
+    console.log(usageSteps);
+  }
+  if (answers.testConfirm) {
+    testSteps = await loopQuestion({
+      type: "input",
+      name: "testSteps",
+      message: "What are your steps?",
+    });
+    console.log(testSteps);
+  }
+
+  const allAnswers = { ...answers, installationSteps, testSteps, usageSteps };
+  console.log(allAnswers);
   // generate readme based on answers
-  const readme = generateReadme(answers);
-  writeToFile("GENERATED_README.md", readme);
+  // const readme = generateReadme(answers);
+  // writeToFile("GENERATED_README.md", readme);
 };
 init();
