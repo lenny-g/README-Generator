@@ -13,6 +13,7 @@ const loopQuestion = async (question) => {
       type: "confirm",
       message: "do you want to quit?",
       name: "quit",
+      default: "No",
     });
 
     if (quit) {
@@ -90,8 +91,6 @@ const questions = [
     message: "Do you want to include a test for this application?",
   },
 ];
-const getAnswers = async (questions, loopQuestion) =>
-  await inquirer.prompt(questions, loopQuestion);
 
 const generateTitle = (title, license) => {
   const uppercaseTitle = title.toUpperCase();
@@ -101,11 +100,16 @@ const generateTitle = (title, license) => {
   `;
 };
 
-const generateTableOfContents = ({ installation, usage, test }) => {
-  return `## Table of Contents${
-    installation ? "\n- [Installation](#installation)" : ""
-  }${usage ? "\n- [Usage](#usage)" : ""}${test ? "\n- [Tests](#tests)" : ""}
+const generateTableOfContents = ({
+  installationSteps,
+  usageSteps,
+  testSteps,
+}) => {
+  return `## Table of Contents
 - [Description](#description)
+${installationSteps ? "\n- [Installation](#installation)" : ""}${
+    usageSteps ? "\n- [Usage](#usage)" : ""
+  }${testSteps ? "\n- [Tests](#tests)" : ""}
 - [Contributing](#contributing)
 - [License](#license)`;
 };
@@ -115,59 +119,53 @@ const generateDescription = (description) => {
 ${description}`;
 };
 
-const generateInstallation = (installation) => {
-  if (installation) {
+const generateInstallation = (installationSteps) => {
+  if (installationSteps) {
     return `## Installation
     
 Run the following script to install the packages required for the application:
     
 \`\`\`
-${installation}
+${installationSteps
+  .map(({ installationSteps: step }) => {
+    return `${step}\n`;
+  })
+  .join("")}
 \`\`\``;
   }
 };
 
-const generateUsage = (usage) => {
-  if (usage) {
+const generateUsage = (usageSteps) => {
+  if (usageSteps) {
     return `## Usage
     
 To use the application run the following script:
     
 \`\`\`
-${usage}
+${usageSteps
+  .map(({ usageSteps: step }) => {
+    return `${step}\n`;
+  })
+  .join("")}
 \`\`\``;
   }
 };
 
-const generateTests = (test) => {
-  if (test) {
+const generateTests = (testSteps) => {
+  if (testSteps) {
     return `## Tests
     
 To use this application run the following script:
     
 \`\`\`
-${test}
+${testSteps
+  .map(({ testSteps: step }) => {
+    return `${step}\n`;
+  })
+  .join("")}
 \`\`\``;
   }
 };
-
-// loopQuestion(
-//   {
-//     type: "input",
-//     name: "installationSteps",
-//     message: "What are your steps?",
-//   },
-//   {
-//     type: "input",
-//     name: "usageSteps",
-//     message: "what are you steps?",
-//   },
-//   {
-//     type: "input",
-//     name: "testSteps",
-//     message: "what are your steps",
-//   }
-// );
 
 const generateContributing = ({ contribute, email, github }) => {
   return `## Contributing
@@ -183,20 +181,18 @@ const generateLicense = (license) => {
 ${license} license`;
 };
 
-const generateReadme = (answers, loopAnswers) => {
+const generateReadme = (answers) => {
   const {
     title,
     description,
-    installation,
-    usage,
-    test,
+    installationSteps,
+    usageSteps,
+    testSteps,
     contribute,
     email,
     github,
     license,
   } = answers;
-
-  const { installationSteps, usageSteps, testSteps } = loopAnswers;
 
   return `
 ${generateTitle(title, license)}
@@ -205,58 +201,62 @@ ${generateTableOfContents(answers)}
     
 ${generateDescription(description)}
 
-${generateInstallation(installation, installationSteps)}
+${generateInstallation(installationSteps)}
 
-${generateUsage(usage, usageSteps)}
+${generateUsage(usageSteps)}
    
-${generateTests(test, testSteps)}
+${generateTests(testSteps)}
     
-${generateContributing(contribute, email, github)}
+${generateContributing({ contribute, email, github })}
     
 ${generateLicense(license)}`;
 };
 
-const writeToFile = (title, data) => {
-  fs.writeFile(title, data, (err) =>
+const writeToFile = (fileName, data) => {
+  fs.writeFile(fileName, data, (err) =>
     err ? console.error(err) : console.log("Success!")
   );
 };
 
 const init = async () => {
+  let installationSteps, usageSteps, testSteps;
+
   // prompt the question using inquirer
   const answers = await inquirer.prompt(questions);
-  console.log(answers);
-  let installationSteps, usageSteps, testSteps;
 
   if (answers.installationConfirm) {
     installationSteps = await loopQuestion({
       type: "input",
       name: "installationSteps",
-      message: "What are your steps?",
+      message: "What are your installation steps?",
     });
-    console.log(installationSteps);
+
+    answers.installationSteps = installationSteps;
   }
+
   if (answers.appConfirm) {
     usageSteps = await loopQuestion({
       type: "input",
       name: "usageSteps",
-      message: "What are your steps?",
+      message: "What are your application's steps?",
     });
-    console.log(usageSteps);
+
+    answers.usageSteps = usageSteps;
   }
+
   if (answers.testConfirm) {
     testSteps = await loopQuestion({
       type: "input",
       name: "testSteps",
-      message: "What are your steps?",
+      message: "What are the steps to test the application?",
     });
-    console.log(testSteps);
+
+    answers.testSteps = testSteps;
   }
 
-  const allAnswers = { ...answers, installationSteps, testSteps, usageSteps };
-  console.log(allAnswers);
-  // generate readme based on answers
-  // const readme = generateReadme(answers);
-  // writeToFile("GENERATED_README.md", readme);
+  console.log(answers);
+  const readme = generateReadme(answers);
+  writeToFile("GENERATED_README.md", readme);
 };
+
 init();
