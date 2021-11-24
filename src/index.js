@@ -155,7 +155,7 @@ const generateTests = (testSteps) => {
   if (testSteps) {
     return `## Tests
     
-To use this application run the following script:
+To test this application run the following script:
     
 \`\`\`
 ${testSteps

@@ -1,53 +1,44 @@
 
-# HELLO ![MIT](https://img.shields.io/static/v1?label=MIT&message=License&color=green)
+# README GENERATOR ![GPLv3](https://img.shields.io/static/v1?label=GPLv3&message=License&color=green)
   
 
 ## Table of Contents
 - [Description](#description)
 
-
 - [Installation](#installation)
-- [Usage](#usage)
 - [Tests](#tests)
 - [Contributing](#contributing)
 - [License](#license)
     
 ## Description
-hello
+Create a command-line application that dynamically generates a professional readme file
 
 ## Installation
     
 Run the following script to install the packages required for the application:
     
 ```
-Y
+npm i inquirer
 
 ```
 
-## Usage
-    
-To use the application run the following script:
-    
-```
-Y
-
-```
+undefined
    
 ## Tests
     
-To use this application run the following script:
+To test this application run the following script:
     
 ```
-hdjhdN
+npm run start
 
 ```
     
 ## Contributing
 
-dhjhdjhdj
+Comment on the repository
 
-and either contact me using my email: Y or github account: <a href="https://github.com/Y">Y</a>
+and either contact me using my email: Leanne_Gallag@live.co.uk or github account: <a href="https://github.com/Lenny-G">Lenny-G</a>
     
 ## License
 
-MIT license
+GPLv3 license
