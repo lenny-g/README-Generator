@@ -19,6 +19,14 @@ This Sceenshot shows a preview of what the generated Readme.
 
 Click [here](https://drive.google.com/file/d/1TNhQg-EzGDvdfRm5Bx7WIJx-ViyxxAG7/view?usp=sharing) for a video demonstrating how the application is used
 
+## INSTALLATION
+
+``` 
+clone from repository
+npm i 
+npm run start
+```
+
 ## WORK ACHIEVED:
 
 - initialise node.js and installed inquirer
