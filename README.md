@@ -1,4 +1,10 @@
-# PROFESSIONAL README GENERATOR ![GPLv3](https://img.sheilds.io/static/v1?label=GPLv3&message=License&color=green)
+# PROFESSIONAL README GENERATOR [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## TABLE OF CONTENTS 
+- [Description](#DESCRIPTION)
+- [Screenshots](#SCREENSHOTS)
+- [Links](#VIDEO LINK OF WORKING APPLICATION)
+- [Installation](#INSTALLATION)
 
 ## DESCRIPTION
 
@@ -8,9 +14,6 @@ The objective was to create a application that dynamically generates a professio
 
 This Screenshot shows the use of Inquierer and Node to get the user's information: 
 ![ScreenShot](https://i.ibb.co/RYRRcwm/My-Drive-Google-Drive.png)
-
-This Screenshot shows the finished Readme that has been generated using the user's input:
-![ScreenShot](https://i.ibb.co/28NDFsC/My-Drive-Google-Drive-1.png)
 
 This Screenshot shows the finished Readme that has been generated using the user's input with a preview of the generated Readme:
 ![ScreenShot](https://i.ibb.co/NNm0BD8/My-Drive-Google-Drive-2.png)
