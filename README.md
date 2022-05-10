@@ -1,4 +1,4 @@
-# PROFESSIONAL README GENERATOR [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# PROFESSIONAL README GENERATOR [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ## TABLE OF CONTENTS 
 - [Description](#DESCRIPTION)
