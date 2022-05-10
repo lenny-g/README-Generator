@@ -4,14 +4,15 @@
 
 The objective was to create a application that dynamically generates a professional readme file from a user's input using Inquirer and node.js
 
-##SCREENSHOTS 
+## SCREENSHOTS 
+
 This Screenshot shows the use of Inquierer and Node to get the user's information: 
 ![ScreenShot](https://i.ibb.co/RYRRcwm/My-Drive-Google-Drive.png)
 
 This Screenshot shows the finished Readme that has been generated using the user's input:
 ![ScreenShot](https://i.ibb.co/28NDFsC/My-Drive-Google-Drive-1.png)
 
-This Sceenshot shows a preview of what the generated Readme.
+This Screenshot shows the finished Readme that has been generated using the user's input with a preview of the generated Readme:
 ![ScreenShot](https://i.ibb.co/NNm0BD8/My-Drive-Google-Drive-2.png)
  
 
