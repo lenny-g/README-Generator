@@ -3,7 +3,7 @@
 ## TABLE OF CONTENTS 
 - [Description](#DESCRIPTION)
 - [Screenshots](#SCREENSHOTS)
-- [Links](#VIDEO LINK OF WORKING APPLICATION)
+- [Links](#LINKS)
 - [Installation](#INSTALLATION)
 
 ## DESCRIPTION
@@ -19,7 +19,7 @@ This Screenshot shows the finished Readme that has been generated using the user
 ![ScreenShot](https://i.ibb.co/NNm0BD8/My-Drive-Google-Drive-2.png)
  
 
-## VIDEO LINK OF WORKING APPLICATION
+## LINKS
 
 Click [here](https://drive.google.com/file/d/1TNhQg-EzGDvdfRm5Bx7WIJx-ViyxxAG7/view?usp=sharing) for a video demonstrating how the application is used
 
@@ -31,8 +31,10 @@ npm i
 npm run start
 ```
 
-## WORK ACHIEVED:
+## CONTACT:
+ 
+If you would like to contact me regarding this project please reach out to me either on 
+[LinkedIn](https://www.linkedin.com/in/leanne-gallagher/) or [GitHub](https://github.com/lenny-g)
 
-- initialise node.js and installed inquirer
-- prompted user for input to insert into readme
-- dynamically rendered a readme file using inquirer and node.js
+
+
