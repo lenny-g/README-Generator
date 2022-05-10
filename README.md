@@ -5,6 +5,7 @@
 - [Screenshots](#SCREENSHOTS)
 - [Links](#LINKS)
 - [Installation](#INSTALLATION)
+- [Contact](#CONTACT)
 
 ## DESCRIPTION
 
@@ -31,7 +32,7 @@ npm i
 npm run start
 ```
 
-## CONTACT:
+## CONTACT
  
 If you would like to contact me regarding this project please reach out to me either on 
 [LinkedIn](https://www.linkedin.com/in/leanne-gallagher/) or [GitHub](https://github.com/lenny-g)
